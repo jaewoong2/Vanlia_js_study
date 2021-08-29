@@ -1,0 +1,210 @@
+/* <div class="container">
+<div class="input-container">
+    <form>
+        <input />
+        <button>+</button>
+    </form>
+</div>
+<ul class="list">
+    <li>
+        <span>Study</span>
+        <span>x</span>
+    </li>
+    <li>
+        <span>Exam</span>
+        <span>x</span>
+    </li>
+</ul>
+</div> */
+
+body,
+html {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+}
+
+#app {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(77, 70, 70, 0.733);
+}
+
+.container {
+  width: 500px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.input-container {
+  width: 500px;
+
+  border-radius: 16px;
+  border: 1px solid #20cc0a;
+}
+
+.input-container form {
+  height: 62px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.input-container form input {
+  width: 100%;
+  border: none;
+  font-size: 1.2em;
+  outline: none;
+  position: relative;
+  padding-left: 20px;
+  color: white;
+  background-color: transparent;
+}
+
+input::placeholder {
+  color: rgba(202, 195, 195, 0.836);
+}
+
+.input-container form button {
+  background-color: #26cf0fe0;
+  border: none;
+  border-radius: 15px;
+  width: 32px;
+  height: 32px;
+  font-size: 1.2em;
+  color: hsla(224, 89%, 58%, 0.904);
+  margin-right: 20px;
+  cursor: pointer;
+}
+
+.list {
+  margin: 20px 0 0 0;
+  padding: 0 0 20px 0;
+  width: 500px;
+  min-height: 300px;
+  list-style: none;
+  background-color: rgba(29, 40, 145, 0.63);
+  border-radius: 15px;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.list div {
+  position: absolute;
+  left: 50%;
+  top: 51%;
+  transform: translate(-50%, -50%);
+  font-size: 2em;
+  color: white;
+}
+
+.list li {
+  margin: 20px 0 0 0;
+  font-size: 19px;
+  position: relative;
+}
+
+.list li::after {
+  content: "";
+  width: 80%;
+  height: 1px;
+  background-color: rgba(101, 173, 72, 0.466);
+  position: absolute;
+  top: 110%;
+  left: 20px;
+}
+
+.list li span:nth-child(2) {
+  float: right;
+  background-color: #43943933;
+  border-radius: 15px;
+  width: 32px;
+  height: 32px;
+  color: hsla(330, 59%, 54%, 0.904);
+  display: flex;
+  justify-content: center;
+  font-size: 19px;
+  margin-right: 20px;
+}
+
+.list li span:nth-child(1) {
+  color: white;
+  margin-left: 20px;
+}
+
+/* 모달 */
+
+.modal {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  left: 0;
+  top: 0;
+
+  background-color: rgba(255, 255, 255, 0.05);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+}
+
+.modal .content {
+  width: 400px;
+  height: 200px;
+  background-color: rgba(77, 156, 209, 0.979);
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  box-shadow: 3px 3px 7px rgba(0, 0, 0, 0.25);
+}
+
+.modal .content .confirm {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal .content .confirm .message {
+  width: 100%;
+  height: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal .content .confirm .btn-wrapper {
+  width: 100%;
+  height: 20%;
+  display: flex;
+  border-top: 1px solid rgba(19, 90, 131, 0.61);
+}
+
+.btn-wrapper span {
+  display: flex;
+  justify-content: center;
+  align-self: center;
+  width: 50%;
+  height: 100%;
+  font-size: 20px;
+  color: rgba(160, 4, 4, 0.836);
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.btn-wrapper span:nth-child(1) {
+  border-right: 1px solid rgba(19, 90, 131, 0.61);
+  color: rgb(0, 0, 0);
+}
