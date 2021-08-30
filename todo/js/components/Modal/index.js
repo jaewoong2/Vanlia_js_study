@@ -74,10 +74,10 @@ export default class Modal {
 
   render() {
     if (this.$state.isOpen) {
-      this.$parent.appendChild(this.$target);
+      this.$parent?.appendChild(this.$target);
     } else {
       this.$target.querySelector(".content").innerHTML = "";
-      this.$parent.removeChild(this.$target);
+      this.$parent?.removeChild(this.$target);
     }
   }
 

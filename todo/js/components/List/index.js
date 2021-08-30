@@ -16,7 +16,7 @@ export default class List {
   }
 
   init() {
-    this.$parent.appendChild(this.$target);
+    this.$parent?.appendChild(this.$target);
     this.bindEvents();
     this.render();
   }

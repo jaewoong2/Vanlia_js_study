@@ -24,7 +24,7 @@ export default class Input {
   }
 
   init() {
-    this.$parent.appendChild(this.$target);
+    this.$parent?.appendChild(this.$target);
     this.bindEvents();
   }
 

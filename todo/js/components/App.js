@@ -1,11 +1,12 @@
 import { getStorage, setStorage } from "../api/index.js";
+import { initialRoutes, setRoutes } from "../router/index.js";
 import Input from "./Input/index.js";
 import List from "./List/index.js";
 import Modal from "./Modal/index.js";
 
 export default class App {
   constructor({ parent }) {
-    this.$parent = parent;
+    // this.$parent = parent;
     this.$target = App.createElement();
     this.$input = null;
     this.$list = null;
@@ -56,10 +57,11 @@ export default class App {
     if (this.isRendering) return;
     this.isRendering = true;
 
-    this.$parent.appendChild(this.$target);
+    // this.$parent?.appendChild(this.$target);
     this.$input = new Input({ parent: this.$target });
     this.$list = new List({ parent: this.$target });
     this.$modal = new Modal({ parent: document.body });
+
     this.getTodos();
     this.bindEvents();
   }
