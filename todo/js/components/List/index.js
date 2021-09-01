@@ -27,8 +27,13 @@ export default class List {
   }
 
   bindEvents() {
-    this.$target.querySelectorAll(".delete-btn").forEach((button, i) => {
-      button.addEventListener("click", () => this.emit("remove", i));
+    // 이벤트 전파
+    this.$target.addEventListener("click", (e) => {
+      if (e.target.classList.contains("delete-btn")) {
+        this.$target
+          .querySelectorAll(".delete-btn")
+          .forEach((btn, i) => e.target === btn && this.emit("remove", i));
+      }
     });
   }
 
@@ -48,7 +53,6 @@ export default class List {
         : `<div>No Todos Today...</div>`;
 
     this.$target.innerHTML = listElement;
-    this.bindEvents();
   }
 
   // 상위 컴포넌트에 등록

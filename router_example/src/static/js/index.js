@@ -10,7 +10,7 @@ const navigateTo = (url) => {
 const router = async () => {
   const routes = [
     { path: "/", view: Dashboard },
-    { path: "/posts", view: Posts },
+    { path: "/posts/:id", view: Posts },
     { path: "/settings", view: Setting },
   ];
 
@@ -25,7 +25,10 @@ const router = async () => {
     (potentialMatch) => potentialMatch.result !== false
   );
 
-  console.log(match, potentialMatches);
+  if (!match) {
+    document.querySelector("#app").innerHTML = "Error";
+    return;
+  }
 
   const view = new match.route.view();
 

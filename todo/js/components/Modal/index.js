@@ -25,15 +25,12 @@ export default class Modal {
       if (event.target === this.$target) {
         this.setState({ isOpen: false });
       }
-    });
 
-    this.$target.querySelectorAll("span").forEach((elem) => {
-      elem.addEventListener("click", () => {
-        if (elem.classList.contains("o-btn")) {
-          this.emit("remove");
-        }
+      // 이벤트 전파
+      if (event.target.classList.contains("o-btn")) {
+        this.emit("remove");
         this.setState({ isOpen: false });
-      });
+      }
     });
   }
 
@@ -68,8 +65,6 @@ export default class Modal {
         <span class="o-btn">O</span>
         <span>X</span>
     `;
-
-    this.bindEvents();
   }
 
   render() {
