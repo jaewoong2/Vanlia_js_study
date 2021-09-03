@@ -6,7 +6,7 @@ export default class Dashboard {
     document.title = title;
   }
 
-  async getHtml() {
+  render() {
     return `
         <h1>Welcome back, Dom</h1>
         <p>
@@ -16,5 +16,14 @@ export default class Dashboard {
             <a href="/posts" data-link>View recent posts</a>.
         </p>
     `;
+  }
+
+  on(eventName, callback) {
+    this.events = this.events ? this.events : {};
+    this.events[eventName] = callback;
+  }
+
+  emit(eventName, payload) {
+    this.events[eventName] && this.events[eventName](payload);
   }
 }

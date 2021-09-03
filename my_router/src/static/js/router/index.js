@@ -1,9 +1,16 @@
+let $state = { routes: [], parent: null };
+
+export const setState = (newState) => {
+  $state = { ...$state, ...newState };
+};
+
 const navigateTo = (url) => {
   history.pushState(null, null, url);
   router();
 };
 
-const router = async ({ $parent, routes }) => {
+export const router = () => {
+  const { routes, parent } = $state;
   const potentialMatches = routes.map((route) => {
     return {
       route,
@@ -16,10 +23,11 @@ const router = async ({ $parent, routes }) => {
   );
 
   if (!match) {
-    $parent.innerHTML = "Error!";
+    parent.innerHTML = "Error!";
+    return;
   }
 
-  $parent.innerHTML = new match.route.view({ props: match.route.props });
+  match.route.view.emit("view");
 };
 
 window.addEventListener("popstate", router);
@@ -32,5 +40,5 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  router();
+  router({});
 });

@@ -1,14 +1,5 @@
 export default class Nav {
-  constructor({
-    parent,
-    initialState = {
-      tags: [
-        { href: "/", content: "Dashboard" },
-        { href: "/posts", content: "Posts" },
-        { href: "/settings", content: "Settings" },
-      ],
-    },
-  }) {
+  constructor({ parent, initialState }) {
     this.$parent = parent;
     this.$target = Nav.createElement();
     this.$state = initialState;
@@ -17,10 +8,18 @@ export default class Nav {
 
   static createElement() {
     const nav = document.createElement("nav");
-    nav.innerHTML = this.$state.tags
+    const tags = [
+      { href: "/", content: "Dashboard" },
+      { href: "/posts", content: "Posts" },
+      { href: "/settings", content: "Settings" },
+    ];
+
+    nav.classList.add("nav");
+
+    nav.innerHTML = tags
       .map((tag) => {
         return `
-            <a href=${tag.href}} class="nav__link" data-link>${tag.content}</a>
+            <a href=${tag.href} class="nav__link" data-link>${tag.content}</a>
         `;
       })
       .join("");
