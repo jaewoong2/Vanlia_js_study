@@ -1,10 +1,9 @@
-export default class Main {
+import { Component } from "../../core/index.js";
+
+export default class Main extends Component {
   constructor({ parent, initialState = { view: "" } }) {
-    this.$parent = parent;
-    this.$target = Main.createElement();
-    this.$state = initialState;
+    super({ parent, initialState });
     this.init();
-    this.render();
   }
 
   static createElement() {
@@ -14,7 +13,9 @@ export default class Main {
   }
 
   init() {
+    this.$target = Main.createElement();
     this.$parent.appendChild(this.$target);
+    this.render();
   }
 
   setState(state) {

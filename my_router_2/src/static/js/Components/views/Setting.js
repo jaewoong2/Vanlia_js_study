@@ -1,5 +1,8 @@
-export default class Settings {
+import { Component } from "../../core/index.js";
+
+export default class Settings extends Component {
   constructor() {
+    super({});
     this.setTitle("Settings");
   }
   setTitle(title) {
@@ -13,13 +16,5 @@ export default class Settings {
         `;
   }
 
-  on(eventName, callback) {
-    this.events = this.events ? this.events : {};
-    this.events[eventName] = callback;
-  }
-
-  emit(eventName, payload) {
-    this.events[eventName] && this.events[eventName](payload);
-  }
   bindEvents() {}
 }

@@ -1,25 +1,29 @@
-export default class Dashboard {
-  constructor(props) {
+import { Component } from "../../core/index.js";
+
+export default class Dashboard extends Component {
+  constructor({ props }) {
+    super({ props });
     this.setTitle("DashBoard");
     this.$state = {
-      props,
       ...props,
     };
+    this.init();
   }
+
   setTitle(title) {
     document.title = title;
   }
 
   setState(state) {
     this.$state = { ...this.$state, ...state };
+    this.render();
   }
 
-  bindEvents() {
-    this.emit("subscribe", {
-      props: Object.keys(this.$state.props),
-      component: this,
-    });
+  init() {
+    this.bindEvents();
   }
+
+  bindEvents() {}
 
   render() {
     return `
@@ -31,14 +35,5 @@ export default class Dashboard {
             <a href="/posts" data-link>View recent posts</a>.
         </p>
     `;
-  }
-
-  on(eventName, callback) {
-    this.events = this.events ? this.events : {};
-    this.events[eventName] = callback;
-  }
-
-  emit(eventName, payload) {
-    this.events[eventName] && this.events[eventName](payload);
   }
 }

@@ -1,8 +1,8 @@
-export default class Nav {
-  constructor({ parent, initialState }) {
-    this.$parent = parent;
-    this.$target = Nav.createElement();
-    this.$state = initialState;
+import { Component } from "../../core/index.js";
+
+export default class Nav extends Component {
+  constructor({ parent }) {
+    super({ parent });
     this.init();
   }
 
@@ -10,7 +10,7 @@ export default class Nav {
     const nav = document.createElement("nav");
     const tags = [
       { href: "/", content: "Dashboard" },
-      { href: "/posts", content: "Posts" },
+      { href: "/counter", content: "Counter" },
       { href: "/settings", content: "Settings" },
     ];
 
@@ -28,6 +28,7 @@ export default class Nav {
   }
 
   init() {
+    this.$target = Nav.createElement();
     this.$parent.appendChild(this.$target);
   }
 }
