@@ -1,17 +1,16 @@
 body {
-  --nav-width: 200px;
-  margin: 0 0 0 var(--nav-width);
+  --nav-width: 100vw;
   font-family: "Quicksand", sans-serif;
   font-size: 18px;
+  margin: 0;
+  padding: 0;
 }
 
 .nav {
-  position: fixed;
-  top: 0;
-  left: 0;
   width: var(--nav-width);
-  height: 100vh;
+  height: 50px;
   background: #222222;
+  display: flex;
 }
 
 .nav__link {
@@ -27,9 +26,12 @@ body {
 }
 
 #app {
-  margin: 2em;
   line-height: 1.5;
   font-weight: 500;
+}
+
+main {
+  margin: 20px 0 0 50px;
 }
 
 a {

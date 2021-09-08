@@ -12,13 +12,13 @@ export class Component {
   render() {}
 
   // 하위 컴포넌트에서 해당하는 event를 사용하면 callback 함수를 실행 시킬 수 있게 한다.
-  on(eventName, callback) {
+  setEvent(eventName, callback) {
     this.events = this.events ? this.events : {};
     this.events[eventName] = callback;
   }
 
   // eventName에 해당하는 함수 (on에 등록된 Callback Function)실행
-  emit(eventName, payload) {
+  useEvent(eventName, payload) {
     this.events[eventName] && this.events[eventName](payload);
   }
 
@@ -35,7 +35,7 @@ export class Component {
   // 상위 컴포넌트에서 props로 들어온 값들을 상위 컴포넌트에 알리는 event
   setSubscribe() {
     if (this.$props) {
-      this.emit("subscribe", {
+      this.useEvent("subscribe", {
         props: Object.keys(this.$props),
         component: this,
       });
@@ -60,7 +60,7 @@ export class Application {
   setComponents({ name, component }) {
     if (!name || !component) return;
     this.$components[name] = component;
-    this.$components[name].on("subscribe", ({ props, component }) => {
+    this.$components[name].setEvent("subscribe", ({ props, component }) => {
       props.forEach((state) => {
         this.$subscribe.push({ name: state, component: component });
       });
@@ -71,7 +71,7 @@ export class Application {
   // 전체를 관리하는 Applictaion 에서 routes 관리 할 수 있도록 Set
   setRoutes({ path, component }) {
     this.$routes[path] = component;
-    this.$routes[path].on("subscribe", ({ props, component }) => {
+    this.$routes[path].setEvent("subscribe", ({ props, component }) => {
       props.forEach((state) => {
         this.$subscribe.push({ name: state, component: component });
       });

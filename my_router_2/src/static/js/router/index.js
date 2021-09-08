@@ -1,10 +1,5 @@
 let $state = { routes: [], parent: null };
 
-const navigateTo = (url) => {
-  history.pushState(null, null, url);
-  router().useRouter();
-};
-
 export const router = () => {
   const setRouterState = ({ routes, parent }) => {
     $state = { routes, parent };
@@ -36,21 +31,13 @@ export const router = () => {
     }
 
     // match에 해당하는 route의 event를 실행
-    match.route.view.emit("view");
+    match.route.view.useEvent("view");
   };
 
-  return { useRouter, setRouterState };
+  const navigateTo = (url) => {
+    history.pushState(null, null, url);
+    useRouter();
+  };
+
+  return { useRouter, setRouterState, navigateTo };
 };
-
-window.addEventListener("popstate", router().useRouter);
-
-document.addEventListener("DOMContentLoaded", () => {
-  document.body.addEventListener("click", (e) => {
-    if (e.target.matches("[data-link]")) {
-      e.preventDefault();
-      navigateTo(e.target.href);
-    }
-  });
-
-  router().useRouter();
-});

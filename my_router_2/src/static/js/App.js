@@ -1,6 +1,6 @@
 import Main from "./Components/Main/index.js";
 import Nav from "./Components/Nav/index.js";
-import Dashboard from "./Components/views/Dashboard.js";
+import Home from "./Components/views/Home.js";
 import Counter from "./Components/views/Counter.js";
 import Settings from "./Components/views/Setting.js";
 import { router } from "./router/index.js";
@@ -18,11 +18,15 @@ export default class App extends Application {
 
   bindEvents() {
     Object.keys(this.$routes).forEach((path) => {
-      this.$routes[path].on("view", () => {
+      this.$routes[path].setEvent("view", () => {
         this.$components["main"].setState({
           view: this.$routes[path].render(),
         });
       });
+    });
+
+    this.$routes["/settings"].setEvent("setName", (name) => {
+      this.setState({ name });
     });
   }
 
@@ -41,7 +45,7 @@ export default class App extends Application {
 
     this.setRoutes({
       path: "/",
-      component: new Dashboard({
+      component: new Home({
         props: {
           name: this.$state.name,
           count: this.$state.count,

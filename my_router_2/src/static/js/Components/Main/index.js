@@ -24,6 +24,13 @@ export default class Main extends Component {
   }
 
   render() {
-    this.$target.innerHTML = this.$state.view;
+    if (typeof this.$state.view === "string") {
+      this.$target.innerHTML = this.$state.view;
+    }
+
+    if (typeof this.$state.view === "object") {
+      this.$target.innerHTML = "";
+      this.$target.appendChild(this.$state.view);
+    }
   }
 }

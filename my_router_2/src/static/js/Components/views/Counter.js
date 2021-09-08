@@ -19,8 +19,8 @@ export default class Couter extends Component {
   bindEvents() {
     document.querySelector("main").addEventListener("click", (e) => {
       if (e.target.classList.contains("up-btn")) {
-        this.$state.setCounter();
-        this.emit("view");
+        this.$props.setCounter();
+        this.useEvent("view");
       }
     });
   }
@@ -28,7 +28,7 @@ export default class Couter extends Component {
   render() {
     return `
             <button class="up-btn">UP</button>
-            <p>${this.$state.count}</p>
+            <p>${this.$props.count}</p>
         `;
   }
 }
