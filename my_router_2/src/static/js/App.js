@@ -3,7 +3,7 @@ import Nav from "./Components/Nav/index.js";
 import Dashboard from "./Components/views/Dashboard.js";
 import Counter from "./Components/views/Counter.js";
 import Settings from "./Components/views/Setting.js";
-import { router, setState as setRouterState } from "./router/index.js";
+import { router } from "./router/index.js";
 import { Application } from "./core/index.js";
 
 export default class App extends Application {
@@ -27,6 +27,8 @@ export default class App extends Application {
   }
 
   init() {
+    const { useRouter, setRouterState } = router();
+
     this.setComponents({
       name: "nav",
       component: new Nav({ parent: this.$target }),
@@ -73,6 +75,6 @@ export default class App extends Application {
       parent: this.$components["main"].$target,
     });
 
-    router();
+    useRouter();
   }
 }

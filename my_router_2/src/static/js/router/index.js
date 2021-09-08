@@ -1,40 +1,48 @@
 let $state = { routes: [], parent: null };
 
-export const setState = (newState) => {
-  $state = { ...$state, ...newState };
-};
-
 const navigateTo = (url) => {
   history.pushState(null, null, url);
-  router();
+  router().useRouter();
 };
 
 export const router = () => {
-  const { routes, parent } = $state;
-  if (!parent) {
-    document.body.innerHTML = "Error!";
-    return;
-  }
-  const potentialMatches = routes.map((route) => {
-    return {
-      route,
-      result: location.pathname === route.path,
-    };
-  });
+  const setRouterState = ({ routes, parent }) => {
+    $state = { routes, parent };
+  };
 
-  const match = potentialMatches.find(
-    (potentialMatch) => potentialMatch.result !== false
-  );
+  const useRouter = () => {
+    const { routes, parent } = $state;
+    if (!parent) {
+      document.body.innerHTML = "Error!";
+      return;
+    }
 
-  if (!match) {
-    parent.innerHTML = "Error!";
-    return;
-  }
+    /** { result: location.pathName is route-path } */
+    const potentialMatches = routes.map((route) => {
+      return {
+        route,
+        result: location.pathname === route.path,
+      };
+    });
 
-  match.route.view.emit("view");
+    /** location.pathname = route-path */
+    const match = potentialMatches.find(
+      (potentialMatch) => potentialMatch.result !== false
+    );
+
+    if (!match) {
+      parent.innerHTML = "Error!";
+      return;
+    }
+
+    // match에 해당하는 route의 event를 실행
+    match.route.view.emit("view");
+  };
+
+  return { useRouter, setRouterState };
 };
 
-window.addEventListener("popstate", router);
+window.addEventListener("popstate", router().useRouter);
 
 document.addEventListener("DOMContentLoaded", () => {
   document.body.addEventListener("click", (e) => {
@@ -44,5 +52,5 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  router();
+  router().useRouter();
 });
