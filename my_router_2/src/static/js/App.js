@@ -1,11 +1,8 @@
 import Main from "./Components/Main/index.js";
 import Nav from "./Components/Nav/index.js";
-import Home from "./Components/views/Home.js";
-import Counter from "./Components/views/Counter.js";
-import Settings from "./Components/views/Setting.js";
+import { Counter, Data, Home, Settings } from "./Components/views/index.js";
 import { router } from "./router/index.js";
 import { Application } from "./core/index.js";
-import Data from "./Components/views/Data.js";
 
 export default class App extends Application {
   constructor() {
