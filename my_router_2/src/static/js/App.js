@@ -5,6 +5,7 @@ import Counter from "./Components/views/Counter.js";
 import Settings from "./Components/views/Setting.js";
 import { router } from "./router/index.js";
 import { Application } from "./core/index.js";
+import Data from "./Components/views/Data.js";
 
 export default class App extends Application {
   constructor() {
@@ -19,10 +20,13 @@ export default class App extends Application {
   bindEvents() {
     Object.keys(this.$routes).forEach((path) => {
       this.$routes[path].setEvent("view", () => {
-        this.$components["main"].setState({
-          view: this.$routes[path].render(),
-        });
+        this.$components["main"].setView(this.$routes[path].render());
       });
+    });
+
+    console.log(this.$routes);
+    this.$routes["/datas"].setEvent("setName", ({ name }) => {
+      this.setState({ name });
     });
 
     this.$routes["/settings"].setEvent("setName", (name) => {
@@ -65,7 +69,12 @@ export default class App extends Application {
 
     this.setRoutes({
       path: "/settings",
-      component: new Settings(),
+      component: new Settings({ props: { name: this.$state.name } }),
+    });
+
+    this.setRoutes({
+      path: "/datas",
+      component: new Data({ props: {} }),
     });
 
     this.bindEvents();

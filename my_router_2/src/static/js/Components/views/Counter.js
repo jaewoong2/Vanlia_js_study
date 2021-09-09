@@ -3,17 +3,13 @@ import { Component } from "../../core/index.js";
 export default class Couter extends Component {
   constructor({ props }) {
     super({ props });
-    this.setTitle("Posts");
     this.$state = { ...props };
+    document.title = "Counter";
     this.init();
   }
 
   init() {
     this.bindEvents();
-  }
-
-  setTitle(title) {
-    document.title = title;
   }
 
   bindEvents() {

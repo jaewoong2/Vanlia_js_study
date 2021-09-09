@@ -12,6 +12,7 @@ export default class Nav extends Component {
       { href: "/", content: "Dashboard" },
       { href: "/counter", content: "Counter" },
       { href: "/settings", content: "Settings" },
+      { href: "/datas", content: "Datas" },
     ];
 
     nav.classList.add("nav");

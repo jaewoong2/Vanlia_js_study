@@ -15,15 +15,10 @@ export default class Main extends Component {
   init() {
     this.$target = Main.createElement();
     this.$parent.appendChild(this.$target);
-    this.render();
   }
 
-  setState(state) {
-    this.$state = { ...this.$state, ...state };
-    this.render();
-  }
-
-  render() {
+  setView(view) {
+    this.setState({ view });
     if (typeof this.$state.view === "string") {
       this.$target.innerHTML = this.$state.view;
     }
@@ -33,4 +28,6 @@ export default class Main extends Component {
       this.$target.appendChild(this.$state.view);
     }
   }
+
+  render() {}
 }

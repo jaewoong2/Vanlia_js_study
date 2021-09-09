@@ -29,7 +29,6 @@ export const router = () => {
       parent.innerHTML = "Error!";
       return;
     }
-
     // match에 해당하는 route의 event를 실행
     match.route.view.useEvent("view");
   };

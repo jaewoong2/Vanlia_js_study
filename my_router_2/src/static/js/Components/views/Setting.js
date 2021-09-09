@@ -1,10 +1,10 @@
 import { Component } from "../../core/index.js";
 
 export default class Settings extends Component {
-  constructor() {
-    super({});
+  constructor({ props }) {
+    super({ props, initialState: { name: "" } });
     this.$target = Settings.createElement();
-    this.setTitle("Settings");
+    document.title = "Settings";
     this.init();
   }
 
@@ -28,8 +28,9 @@ export default class Settings extends Component {
     return container;
   }
 
-  setTitle(title) {
-    document.title = title;
+  setProps(props) {
+    this.$props = { ...this.$props, ...props };
+    this.setState({ ...props });
   }
 
   bindEvents() {
@@ -38,15 +39,8 @@ export default class Settings extends Component {
 
     form.addEventListener("submit", (e) => {
       e.preventDefault();
-      if (
-        input.value.trim() === "" ||
-        input.value.trim() === " " ||
-        this.$state?.name.trim() === "" ||
-        this.$state?.name.trim() === " "
-      )
-        return;
+      if (input.value.trim() === "" || this.$state?.name.trim() === "") return;
       this.useEvent("setName", this.$state.name);
-      this.setState({ name: "" });
       input.value = "";
     });
 
@@ -57,9 +51,16 @@ export default class Settings extends Component {
 
   init() {
     this.bindEvents();
+    this.render();
   }
 
   render() {
+    if (this.$state.name) {
+      this.$target.querySelector("input").value = this.$state.name;
+    }
+
+    // outerHTML 로 return 하면 eventListner가 사라진다.
+    // => element 로 반환
     return this.$target;
   }
 }

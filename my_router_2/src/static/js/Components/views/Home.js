@@ -3,15 +3,11 @@ import { Component } from "../../core/index.js";
 export default class Home extends Component {
   constructor({ props }) {
     super({ props });
-    this.setTitle("Home");
     this.$state = {
       ...props,
     };
     this.init();
-  }
-
-  setTitle(title) {
-    document.title = title;
+    document.title = "Home";
   }
 
   setState(state) {
@@ -27,7 +23,7 @@ export default class Home extends Component {
 
   render() {
     return `
-        <h1> Hello, ${this.$props.name + ":::::" + this.$props.count}</h1>
+        <h1> Hello, ${this.$props.name + "====>" + this.$props.count}</h1>
     `;
   }
 }
