@@ -1,0 +1,165 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&family=Roboto&display=swap");
+* {
+  font-family: "Noto Sans KR", sans-serif;
+}
+html,
+body {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background-color: black;
+}
+
+.right-pharagraph-container {
+  position: absolute;
+  right: 0;
+  top: 70%;
+  color: white;
+}
+
+.right-pharagraph {
+  transform: rotate(90deg);
+}
+
+.right-pharagraph-container div {
+  position: absolute;
+  content: "";
+  width: 2px;
+  height: 200px;
+  background-color: rgba(100, 148, 237, 0.76);
+  bottom: 200%;
+  right: 50%;
+}
+
+#app {
+  width: 100%;
+  height: 100%;
+}
+
+#app2 {
+  width: 100%;
+  height: 100%;
+  background-color: white;
+}
+
+.image-container {
+  width: 50%;
+  height: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+article {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+img {
+  width: auto;
+  height: 100%;
+}
+
+.menu-container {
+  position: absolute;
+  top: 50px;
+  left: 20px;
+  width: 34px;
+  height: 24px;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.menu-container div {
+  width: 100%;
+  background-color: rgb(211, 207, 207);
+  height: 5px;
+  margin-bottom: 4px;
+  border-radius: 5px;
+  transition: width 0.2s linear;
+}
+
+.menu-container > div[data-index="1"] {
+  width: 30%;
+  background-color: red;
+}
+
+.menu-container > div[data-index="3"] {
+  width: 30%;
+  background-color: blue;
+}
+
+.menu-container:hover div {
+  width: 100%;
+}
+
+.typo {
+  position: absolute;
+  left: 50%;
+  top: 45%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 3.5em;
+  font-weight: 900;
+  letter-spacing: 2px;
+  font-family: "Roboto", sans-serif;
+  word-break: break-all;
+}
+
+.typo[data-id="0"]::before {
+  content: " `` ";
+  position: absolute;
+  left: -40px;
+  top: -40px;
+  color: red;
+}
+
+.arrow {
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 5px;
+}
+
+.right {
+  transform: rotate(-45deg) scale(150%);
+  -webkit-transform: rotate(-45deg);
+}
+
+.left {
+  transform: rotate(135deg) scale(1250%);
+  -webkit-transform: rotate(135deg);
+}
+
+.up {
+  transform: rotate(-135deg) scale(150%);
+  -webkit-transform: rotate(-135deg);
+}
+
+.down {
+  transform: rotate(45deg) scale(120%);
+  -webkit-transform: rotate(45deg) scale(120%);
+}
+
+.pos-down {
+  position: absolute;
+  left: 50%;
+  bottom: 20px;
+  cursor: pointer;
+  animation-name: twinkle;
+  animation-duration: 1.5s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes twinkle {
+  50% {
+    transform: rotate(45deg) scale(1);
+    opacity: 0.5;
+  }
+}

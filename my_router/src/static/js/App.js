@@ -1,7 +1,7 @@
 import Main from "./Components/Main/index.js";
 import Nav from "./Components/Nav/index.js";
 import Dashboard from "./Components/views/Dashboard.js";
-import Posts from "./Components/views/Posts.js";
+import Counter from "./Components/views/Counter.js";
 import Settings from "./Components/views/Setting.js";
 import { router, setState as setRouterState } from "./router/index.js";
 
@@ -18,9 +18,11 @@ export default class App {
     this.$dashboard.on("view", () => {
       this.$main.setState({ view: this.$dashboard.render() });
     });
-    this.$posts.on("view", () => {
-      this.$main.setState({ view: this.$posts.render() });
+
+    this.$counter.on("view", () => {
+      this.$main.setState({ view: this.$counter.render() });
     });
+
     this.$settings.on("view", () => {
       this.$main.setState({ view: this.$settings.render() });
     });
@@ -29,13 +31,13 @@ export default class App {
   init() {
     this.$nav = new Nav({ parent: this.$target });
     this.$main = new Main({ parent: this.$target, initialState: {} });
-    this.$dashboard = new Dashboard();
-    this.$posts = new Posts();
+    this.$dashboard = new Dashboard({ initialState: { name: "Woongs!" } });
+    this.$counter = new Counter();
     this.$settings = new Settings();
 
     this.$state.routes = [
       { path: "/", view: this.$dashboard },
-      { path: "/posts", view: this.$posts },
+      { path: "/posts", view: this.$counter },
       { path: "/settings", view: this.$settings },
     ];
 
