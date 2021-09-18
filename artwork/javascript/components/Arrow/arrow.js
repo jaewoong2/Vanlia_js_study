@@ -7,7 +7,8 @@ export default class Arrow {
   }
 
   init() {
-    document.body.appendChild(this.$target);
+    document.body.querySelector("#app").appendChild(this.$target);
+
     this.$target.classList.add("arrow");
     if (this.type === "down") {
       this.$target.classList.add("down");

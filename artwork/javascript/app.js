@@ -1,6 +1,6 @@
 import Arrow from "./components/Arrow/arrow.js";
-import { Image } from "./components/image.js";
-import { ImageContainer } from "./components/imageContainer.js";
+import { Image } from "./components/Images/image.js";
+import { ImageContainer } from "./components/Images/imageContainer.js";
 import MenuContainer from "./components/MenuBar/menuContainer.js";
 import Typo from "./components/TypoGraphic/typo.js";
 import { blurring } from "./utils/index.js";
@@ -20,7 +20,7 @@ export class App {
   init() {
     this.$target.appendChild(this.article);
     this.imageContainer = new ImageContainer(this.article);
-    this.image = new Image(this.imageContainer.$target);
+    this.image = new Image(this.imageContainer.$target, "images/korea.png");
     this.menuContainer = new MenuContainer(this.$target);
 
     blurring(20, 100, 1.5, (blurValue) => {

@@ -1,8 +1,8 @@
 export class Image {
-  constructor(parent) {
+  constructor(parent, src) {
     this.$parent = parent;
     this.$target = Image.createElement();
-    this.init();
+    this.init(src);
   }
 
   static createElement() {
@@ -11,9 +11,9 @@ export class Image {
 
   bindEvnts() {}
 
-  init() {
+  init(src) {
     this.$parent.appendChild(this.$target);
-    this.$target.src = "images/korea.png";
+    this.$target.src = src;
     this.bindEvnts();
   }
 
