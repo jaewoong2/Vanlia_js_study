@@ -1,10 +1,10 @@
 export default class Typo {
-  constructor() {
+  constructor({ className, text, callback }) {
     this.$target = document.createElement("div");
-    this.init();
+    this.init({ className, text, callback });
   }
 
-  init() {
+  init({ className, text }) {
     const phargraph1 = document.createElement("p");
     document.body.querySelector("#app").appendChild(this.$target);
     this.$target.appendChild(phargraph1);
@@ -12,15 +12,14 @@ export default class Typo {
     this.$target.classList.add("typo-container");
 
     this.$target.childNodes.forEach((node, idx) => {
-      node.classList.add("typo");
+      node.classList.add(className);
       node.dataset.id = idx;
     });
 
     setTimeout(() => {
       phargraph1.style.transform = `translate(-50%, -50%)`;
-    }, 200);
+    }, 10);
 
-    phargraph1.innerText =
-      "We can Make United Korea, \n only Understand Thier life";
+    phargraph1.innerText = text;
   }
 }

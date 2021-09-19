@@ -12,7 +12,11 @@ export class App {
     this.imageContainer = null;
     this.image = null;
     this.menuContainer = null;
-    this.typo = new Typo();
+    this.typo = new Typo({
+      className: "typo",
+      text: "Understand Their Life :",
+    });
+    this.typo = new Typo({ className: "typo-2", text: "For United Korea" });
     this.arrow = new Arrow("down").setup({ position: "down" });
     this.init();
   }

@@ -1,47 +1,27 @@
-import { Image } from "./components/Images/image.js";
-import { ImageContainer } from "./components/Images/imageContainer.js";
+import { createElement } from "./components/Circle/Circle.js";
 
 export default class App2 {
   constructor() {
-    this.$target = document.querySelector("#app2");
-    this.$images = [];
-    this.$imagesContainer = document.createElement("div");
-    this.bindEvents();
-    this.isInit = false;
+    this.$target = document.body.querySelector("#app2");
+    this.$circleBox = document.createElement("div");
+    this.$circle = null;
+    this.init();
   }
 
   init() {
-    this.isInit = true;
-    this.$imagesContainer.classList.add("images-container");
-    this.$target.appendChild(this.$imagesContainer);
+    this.$target.appendChild(this.$circleBox);
+    this.$circleBox.classList.add("circle-box");
 
-    [1, 2, 3, 4, 5].forEach((value) => {
-      this.$images.push(
-        new Image(
-          new ImageContainer(this.$target).$target,
-          `images/image-${value}.jpg`
-        )
-      );
-    });
-
-    this.$images.forEach((image, index) => {
-      image.$target.dataset.id = index;
-      image.$target.classList.add("photo-image");
-      image.$target.parentElement.className = "photo-container";
-      this.$imagesContainer.appendChild(image.$target.parentElement);
-    });
-
-    const typoGraphic1 = document.createElement("p");
-    typoGraphic1.classList.add("app2-typo");
-    typoGraphic1.innerText = "그들의 삶 또한 우리와 다르지 않습니다";
-    this.$target.appendChild(typoGraphic1);
-  }
-
-  bindEvents() {
-    window.addEventListener("scroll", () => {
-      if (window.scrollY > document.body.offsetHeight - 100) {
-        if (this.isInit === false) this.init();
-      }
+    createElement({
+      width: "150px",
+      height: "150px",
+      parent: document.body.querySelector(".circle-box"),
+      color: "rgba(2, 91, 255, 0.76)",
+      peresentage: 65.8,
+      text: "통일 \n 필요하다",
+      containerClass: "circle-container",
     });
   }
+
+  bindEvents() {}
 }

@@ -31,7 +31,7 @@ body {
   content: "";
   width: 2px;
   height: 200px;
-  background-color: rgba(100, 148, 237, 0.76);
+  background-color: rgba(2, 91, 255, 0.76);
   bottom: 200%;
   right: 50%;
 }
@@ -71,6 +71,7 @@ img {
   display: flex;
   flex-direction: column;
   cursor: pointer;
+  z-index: 1;
 }
 
 .menu-container div {
@@ -109,6 +110,23 @@ img {
   word-break: break-all;
   transition: transform 3s;
   z-index: 2;
+  font-style: italic;
+}
+
+.typo-2 {
+  position: absolute;
+  left: 50%;
+  top: 52%;
+  transform: translate(-200%, -50%);
+  color: white;
+  font-size: 3.5em;
+  font-weight: 900;
+  letter-spacing: 2px;
+  font-family: "Roboto", sans-serif;
+  word-break: break-all;
+  transition: transform 3s;
+  z-index: 2;
+  font-style: italic;
 }
 
 .typo[data-id="0"]::before {
@@ -127,18 +145,18 @@ img {
 }
 
 .right {
-  transform: rotate(-45deg) scale(150%);
-  -webkit-transform: rotate(-45deg);
+  transform: rotate(-45deg) scale(120%);
+  -webkit-transform: rotate(-45deg) scale(125%);
 }
 
 .left {
-  transform: rotate(135deg) scale(1250%);
-  -webkit-transform: rotate(135deg);
+  transform: rotate(135deg) scale(120%);
+  -webkit-transform: rotate(135deg) scale(125%);
 }
 
 .up {
-  transform: rotate(-135deg) scale(150%);
-  -webkit-transform: rotate(-135deg);
+  transform: rotate(-135deg) scale(120%);
+  -webkit-transform: rotate(-135deg) scale(125%);
 }
 
 .down {
@@ -181,12 +199,15 @@ img {
   height: 100%;
   background-color: rgba(241, 147, 24, 0.644);
   overflow-x: hidden;
+
+  height: 100%;
+  text-align: center;
+  place-items: center;
 }
 
 #app2 h1 {
   position: absolute;
   padding: 20px 0 0 20px;
-  font-family: "Roboto", sans-serif;
   color: rgb(46, 185, 228);
 }
 
@@ -199,51 +220,20 @@ img {
   color: rgba(96, 255, 4, 0.253);
 }
 
-.images-container {
+span {
+  font-family: "Noto Sans KR", sans-serif;
+  font-weight: bolder;
+  color: white;
+}
+
+.circle-box {
+  position: relative;
   width: 100%;
   height: 100%;
+  border-radius: 50%;
   display: flex;
+  justify-content: center;
   align-items: center;
-  animation-name: convey;
-  animation-duration: 20s;
-  translate: all 0.2s;
-}
-
-.photo-container {
-  min-height: 150px;
-  height: 40%;
-  max-height: 400px;
-  box-shadow: 3px 3px 9px rgba(0, 0, 0, 0.25);
-  margin-right: 50px;
-}
-
-.photo-image {
-  height: 100%;
-  width: auto;
-  border-radius: 7px;
-}
-
-@keyframes convey {
-  0% {
-    transform: translateX(-100%);
-  }
-
-  50% {
-    transform: translateX(0%);
-  }
-
-  100% {
-    transform: translateX(-45%);
-  }
-}
-
-.app2-typo {
-  position: absolute;
-  top: 100px;
-  right: 50px;
-  color: black;
-  font-family: "Roboto", sans-serif;
-  font-size: 2em;
-  text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.25);
-  font-weight: bold;
+  position: relative;
+  background-color: transparent;
 }
