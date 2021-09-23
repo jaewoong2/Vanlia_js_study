@@ -69,7 +69,6 @@ class CircleCanvas {
   constructor(ref, color) {
     this.ref = ref;
     const clinetRect = this.ref.getBoundingClientRect();
-    console.log(clinetRect, ref);
     this.width = clinetRect.width;
     this.heigth = clinetRect.height;
     this.position = {
@@ -89,6 +88,24 @@ class CircleCanvas {
   }
 
   create() {
+    const gradient = this.context.createLinearGradient(
+      0,
+      0,
+      this.canvas.width,
+      0
+    );
+    const createRandomRGB = () => {
+      return `rgba(${Math.floor(Math.random() * 255)}, ${Math.floor(
+        Math.random() * 255
+      )}, ${Math.floor(Math.random() * 255)}, 0.65)`;
+    };
+
+    gradient.addColorStop("0", createRandomRGB());
+    gradient.addColorStop("0.5", createRandomRGB());
+    gradient.addColorStop("1.0", createRandomRGB());
+
+    this.gradient = gradient;
+
     return this.canvas;
   }
 
@@ -97,7 +114,8 @@ class CircleCanvas {
     if (this.context) {
       this.context?.beginPath();
       this.context.lineCap = "round";
-      this.context.strokeStyle = this.color;
+
+      this.context.strokeStyle = this.gradient;
       this.context.lineWidth = 5.5;
       this.context?.arc(
         this.position.x,
@@ -152,6 +170,8 @@ export const createCircle = async ({
     span.innerText = `${i}%`;
     circleLine.update(i);
   }
+
+  span.innerText = text;
 
   return circleElement;
 };

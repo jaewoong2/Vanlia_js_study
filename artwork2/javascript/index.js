@@ -24,6 +24,16 @@ const content = {
   },
   third: {
     target: document.querySelector(".third"),
+    head: document.querySelector(".head"),
+    imageContainer: document
+      .querySelector(".third")
+      .querySelector(".image-container"),
+  },
+  fourth: {
+    target: document.querySelector(".fourth"),
+    imageContainer: document
+      .querySelector(".fourth")
+      .querySelector(".image-container"),
   },
 };
 
@@ -33,7 +43,7 @@ const init = async () => {
   firstTitle.underStand.classList.add("left-move");
   await sleep(2000);
   firstTitle.target.classList.add("up-move");
-  await second();
+  second();
   await sleep(5000);
   app.removeChild(firstTitle.target);
 };
@@ -53,15 +63,15 @@ const second = async () => {
 };
 
 const third = async () => {
-  const { target } = content.third;
+  const { target, head, imageContainer } = content.third;
   target.style.height = `100%`;
   window.scrollTo({ top: document.body.offsetHeight, behavior: "smooth" });
-
+  head.classList.remove("hidden");
+  imageContainer.classList.remove("hidden");
   createCircle({
     parent: target,
-    peresentage: 80,
-    color: "blue",
-    text: "65.8%",
+    peresentage: 52.8,
+    text: "52.8%",
     textColor: "white",
     containerClass: "circle-box",
     width: `250px`,
@@ -70,17 +80,35 @@ const third = async () => {
 
   createCircle({
     parent: target,
-    peresentage: 83.6,
-    color: "rgba(220, 45, 45, 0.65)",
-    text: "83.6%",
+    peresentage: 62.6,
+    text: "62.6%",
     textColor: "white",
     containerClass: "circle-box2",
     width: `250px`,
     height: `250px`,
   });
+
+  createCircle({
+    parent: target,
+    peresentage: 89.8,
+    text: "89.8%",
+    textColor: "white",
+    containerClass: "circle-box3",
+    width: `250px`,
+    height: `250px`,
+  });
+
   await sleep(1000);
+  target.querySelector(".circle-box3").classList.add("circle-text3");
   target.querySelector(".circle-box2").classList.add("circle-text2");
   target.querySelector(".circle-box").classList.add("circle-text");
+  fourth();
+};
+
+const fourth = async () => {
+  const { target, imageContainer } = content.fourth;
+  target.style.height = `500%`;
+  imageContainer.classList.remove("hidden");
 };
 
 window.onload = init;
