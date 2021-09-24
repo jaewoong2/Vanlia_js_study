@@ -1,4 +1,4 @@
-import { createCircle } from "./utils.js";
+import { createCircle, throttle } from "./utils.js";
 
 const sleep = (ms) => {
   return new Promise((resolve) => {
@@ -38,6 +38,10 @@ const content = {
       .querySelector(".fourth")
       .querySelectorAll(".image-container"),
     years: document.querySelector(".years"),
+  },
+  fifth: {
+    target: document.querySelector(".fifth"),
+    bigger: document.querySelector(".fifth").querySelector(".bigger"),
   },
 };
 
@@ -112,6 +116,8 @@ const third = async () => {
 
 const fourth = async () => {
   const { target, imageContainers, imageContainer, years } = content.fourth;
+  let isUseFifth = false;
+
   target.style.height = `1000%`;
   target.classList.remove("hidden");
 
@@ -126,13 +132,18 @@ const fourth = async () => {
   let dx = 0;
   let currentScroll = window.scrollY;
 
-  window.addEventListener("scroll", (e) => {
+  const onScrollEvnet = () => {
     const { y, height } = target.getBoundingClientRect();
     const { y: imageContainersY } = imageContainers.getBoundingClientRect();
-
-    if (y < 0) {
+    if (y < 20) {
       dx -= currentScroll - window.scrollY;
       currentScroll = window.scrollY;
+
+      years.style.opacity = 1;
+      imageContainers.style.opacity = 1;
+
+      years.classList.remove("scroll-end-yeras");
+      imageContainers.classList.remove("scroll-end-container");
 
       imageContainers.classList.add("fixed");
       imageContainers.style.transform = `translateX(${-dx}px)`;
@@ -155,12 +166,52 @@ const fourth = async () => {
     } else {
       if (imageContainersY < 0) {
         dx -= currentScroll - window.scrollY;
+      } else {
+        dx = 0;
       }
+      imageContainers.style.transform = `translateX(${-dx}px)`;
       currentScroll = window.scrollY;
       years.classList.remove("fixed-years");
       imageContainers.classList.remove("fixed");
     }
-  });
+
+    if (-y > height) {
+      years.style.opacity = 0;
+      imageContainers.style.opacity = 0;
+      !isUseFifth && fifth();
+      isUseFifth = true;
+      setTimeout(() => {
+        years.classList.add("scroll-end-yeras");
+        imageContainers.classList.add("scroll-end-container");
+      }, 100);
+    }
+  };
+
+  window.addEventListener("scroll", throttle(onScrollEvnet, 10));
+};
+
+const fifth = async () => {
+  const { target, bigger } = content.fifth;
+  target.classList.remove("hidden");
+
+  let scale = 0.5;
+  const LOW_LIMIT_SCALE = 0.5;
+  const HIGH_LIMIT_SCALE = document.body.offsetWidth > 486 ? 5 : 1.9;
+  const ds = document.body.offsetWidth > 486 ? 0.5 : 0.2;
+
+  window.addEventListener(
+    "mousewheel",
+    throttle((event) => {
+      const { y } = target.getBoundingClientRect();
+      if (y > 0) return;
+      if (event.wheelDelta >= 0) {
+        if (scale > LOW_LIMIT_SCALE) scale -= ds;
+      } else {
+        if (scale < HIGH_LIMIT_SCALE) scale += ds;
+      }
+      bigger.style.transform = `scale(${scale})`;
+    }, 10)
+  );
 };
 
 window.onload = init;
