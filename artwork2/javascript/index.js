@@ -143,6 +143,8 @@ const fourth = async () => {
   const onScrollEvnet = () => {
     const { y, height, bottom } = target.getBoundingClientRect();
     const { y: imageContainersY } = imageContainers.getBoundingClientRect();
+    if (bottom < -11) return;
+
     if (y < 20) {
       content.backgroundContainer.style.display = "block";
       content.rightContainer.style.display = "block";
@@ -203,12 +205,13 @@ const fourth = async () => {
     }
   };
 
-  window.addEventListener("scroll", throttle(onScrollEvnet, 10));
+  window.addEventListener("scroll", throttle(onScrollEvnet, 5));
 };
 
 const fifth = async () => {
   const { target, bigger } = content.fifth;
   target.classList.remove("hidden");
+
   let isSixUsed = false;
   let alpha = 0;
   let scale = 0.1;
@@ -218,43 +221,141 @@ const fifth = async () => {
   const HIGH_LIMIT_SCALE = document.body.offsetWidth > 486 ? 5 : 1.9;
   const ds = document.body.offsetWidth > 486 ? 0.05 : 0.05;
 
-  window.addEventListener(
-    "mousewheel",
-    throttle((event) => {
-      const { y, bottom } = target.getBoundingClientRect();
-      if (y > 10) {
-        bigger.style.color = "white";
-        alpha = 0;
-      } else if (event.wheelDelta >= 0) {
-        if (scale > LOW_LIMIT_SCALE) {
-          scale -= ds;
-        }
-        if (alpha < ALPHA_LIMIT) {
-          bigger.style.color = "white";
-        }
-        alpha -= ALPHA_DA;
-      } else {
-        if (scale < HIGH_LIMIT_SCALE) {
-          scale += ds;
-        }
-        if (alpha > ALPHA_LIMIT) {
-          bigger.style.color = "black";
-        }
-        alpha += ALPHA_DA;
+  const onScrollEvnet = () => {
+    const { y, height, bottom } = target.getBoundingClientRect();
+    if (bottom < -11) return;
+    if (y < 10) {
+      if (-y < height * 0.2) {
+        target.style.backgroundColor = `rgba(255, 255, 255, 0.1)`;
+        bigger.style.color = "rgba(255, 255, 255, 1)";
+        bigger.style.position = "fixed";
+        bigger.style.transform = `scale(1)`;
+        bigger.classList.remove("hidden");
+      } else if (-y < height * 0.4) {
+        target.style.backgroundColor = `rgba(255, 255, 255, 0.5)`;
+        bigger.style.color = "rgba(100, 100, 100)";
+        bigger.style.position = "fixed";
+        bigger.style.transform = `scale(3)`;
+        bigger.classList.remove("hidden");
+      } else if (-y < height * 0.6) {
+        target.style.backgroundColor = `rgba(255, 255, 255, 1)`;
+        bigger.style.color = "rgba(0, 0, 0)";
+        bigger.style.position = "fixed";
+        bigger.style.transform = `scale(5)`;
+        bigger.classList.remove("hidden");
       }
-      if (alpha < 0.98) {
-        target.style.backgroundColor = `rgba(255, 255, 255, ${alpha})`;
-      }
-      bigger.style.transform = `scale(${scale})`;
+      // else if (-y < height * 0.8) {
+      //   bigger.style.color = "rgba(255, 255, 255, 0.4)";
+      //   target.style.backgroundColor = `rgba(255, 255, 255, 0.8)`;
+      //   bigger.style.position = "fixed";
+      //   bigger.style.transform = `scale(3)`;
+      //   bigger.classList.remove("hidden");
+      // } else if (-y < height * 0.9) {
+      //   bigger.style.color = "rgba(255, 255, 255, 0)";
+      //   target.style.backgroundColor = `rgba(255, 255, 255, 1)`;
+      //   bigger.style.position = "fixed";
+      //   bigger.style.transform = `scale(3.5)`;
+      //   bigger.classList.remove("hidden");
+      // }
+    } else {
+      target.style.backgroundColor = `rgba(255, 255, 255, 0.0)`;
+      bigger.style.transform = `scale(0)`;
+      bigger.classList.add("hidden");
+    }
 
-      if (bottom - 10 < document.body.offsetHeight) {
-        !isSixUsed && sixth();
-        isSixUsed = true;
-      }
-    }, 10)
-  );
+    if (bottom - 10 < document.body.offsetHeight) {
+      !isSixUsed && sixth();
+      isSixUsed = true;
+      bigger.classList.add("hidden");
+      target.style.backgroundColor = `rgba(255, 255, 255, 1)`;
+      bigger.style.transform = `scale(3.5)`;
+    }
+  };
+
+  window.addEventListener("scroll", throttle(onScrollEvnet, 10));
 };
 
-const sixth = () => {};
+const sixth = async () => {
+  const { target } = content.sixth;
+  const southKorea = document.body.querySelector(".south-korea-container");
+  const northKorea = document.body.querySelector(".north-korea-container");
+  const northSouth = document.body.querySelector(".north-and-south");
+  northSouth.style.opacity = 0;
+
+  const onScrollEvnet = () => {
+    const { y, height, bottom } = target.getBoundingClientRect();
+    if (bottom < -11) return;
+
+    if (y < 20) {
+      if (-y < height * 0.2) {
+        northSouth.style.display = "block";
+        southKorea.style.position = "fixed";
+        northKorea.style.position = "fixed";
+        southKorea.style.opacity = 0.4;
+        northKorea.style.opacity = 0;
+        northSouth.style.opacity = 0;
+
+        target.style.backgroundColor = `rgba(255, 255, 255)`;
+      } else if (-y < height * 0.4) {
+        southKorea.style.opacity = 1;
+        northKorea.style.opacity = 0;
+        northSouth.style.opacity = 0;
+
+        target.style.backgroundColor = `rgba(150, 150, 150)`;
+      } else if (-y < height * 0.6) {
+        southKorea.style.opacity = 0.4;
+        northKorea.style.opacity = 0.4;
+        northSouth.style.opacity = 0;
+
+        target.style.backgroundColor = `rgba(100, 100, 100)`;
+      } else if (-y < height * 0.8) {
+        southKorea.style.opacity = 0;
+        northKorea.style.opacity = 1;
+        northSouth.style.opacity = 0;
+
+        target.style.backgroundColor = `rgba(150, 150, 150)`;
+      } else if (-y < height * 0.9) {
+        southKorea.style.opacity = 0.0;
+        northKorea.style.opacity = 0;
+        northSouth.style.opacity = 1;
+
+        target.style.backgroundColor = `rgba(255, 255, 255)`;
+      } else if (-y < height) {
+      }
+    } else {
+      northSouth.style.opacity = 0;
+      southKorea.style.opacity = 0;
+      northKorea.style.opacity = 0;
+    }
+
+    if (bottom - 10 < document.body.offsetHeight) {
+      northKorea.style.opacity = 0;
+      southKorea.style.opacity = 0;
+
+      northSouth.style.position = "fixed";
+      northSouth.style.opacity = 1;
+      target.style.backgroundColor = `rgba(255, 255, 255)`;
+      northSouth.querySelector("img").style.opacity = 0;
+      northSouth.querySelector(".and").style.opacity = 1;
+      setTimeout(() => {
+        northSouth.querySelector("img").style.opacity = 1;
+        northSouth.querySelector(".and").style.opacity = 0;
+      }, 1000);
+      final();
+    }
+  };
+
+  window.addEventListener("scroll", throttle(onScrollEvnet, 10));
+
+  target.classList.remove("hidden");
+};
+
+const final = async () => {
+  await sleep(1000);
+  const target = document.querySelector(".final");
+  const northSouth = document.body.querySelector(".north-and-south");
+  northSouth.style.display = "none";
+  target.classList.remove("hidden");
+};
 
 window.onload = init;

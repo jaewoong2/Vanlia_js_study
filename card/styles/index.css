@@ -1,0 +1,49 @@
+/* <div class="card">
+<nav>
+    <div class="title">Title</div>
+    <div>
+        <div class="under-bar"></div>
+        <div class="max"></div>
+        <div class="cancle"></div>
+    </div>
+</nav>
+<div class="content">
+    <div class="content-image-container">
+        <img src="../artwork2/images/boo.JPG">
+    </div>
+    <a href="https://www.unikorea.go.kr/unikorea/" target="_blank">통일부</a>
+    <p>통일에 관한 사무를 관장하는 대한민국의 중앙행정기관이다</p>
+</div>
+</div> */
+
+.card {
+  width: 300px;
+  background-color: rgba(76, 130, 231, 0.21);
+  border-radius: 8px;
+  box-shadow: 3px 3px 7px rgba(0, 0, 0, 0.15);
+  transition: transform 0.5s;
+  padding: 20px;
+}
+.card:hover {
+  transform: translate(0, -2px);
+  transition: transform 0.5s;
+}
+
+.nav-container {
+  display: flex;
+}
+
+.content {
+  width: 100%;
+  height: 100%;
+  font-family: "Roboto", sans-serif;
+}
+
+.content > .content-image-container {
+  width: 100%;
+}
+
+.content-image-container > img {
+  width: 100%;
+  height: auto;
+}
