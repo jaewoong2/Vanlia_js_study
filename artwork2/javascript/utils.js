@@ -116,7 +116,7 @@ class CircleCanvas {
       this.context.lineCap = "round";
 
       this.context.strokeStyle = this.gradient;
-      this.context.lineWidth = 5.5;
+      this.context.lineWidth = 7.5;
       this.context?.arc(
         this.position.x,
         this.position.y,

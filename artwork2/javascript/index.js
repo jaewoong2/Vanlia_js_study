@@ -4,7 +4,7 @@ const sleep = (ms) => {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve(true);
-    }, ms % 1000);
+    }, ms);
   });
 };
 
@@ -43,6 +43,14 @@ const content = {
     target: document.querySelector(".fifth"),
     bigger: document.querySelector(".fifth").querySelector(".bigger"),
   },
+  sixth: {
+    target: document.querySelector(".sixth"),
+    redBall: document.querySelector(".red"),
+    blueBall: document.querySelector(".blue"),
+    fusion: document.querySelector(".fusion"),
+  },
+  backgroundContainer: document.querySelector(".background-container"),
+  rightContainer: document.querySelector(".right-container"),
 };
 
 const init = async () => {
@@ -133,9 +141,11 @@ const fourth = async () => {
   let currentScroll = window.scrollY;
 
   const onScrollEvnet = () => {
-    const { y, height } = target.getBoundingClientRect();
+    const { y, height, bottom } = target.getBoundingClientRect();
     const { y: imageContainersY } = imageContainers.getBoundingClientRect();
     if (y < 20) {
+      content.backgroundContainer.style.display = "block";
+      content.rightContainer.style.display = "block";
       dx -= currentScroll - window.scrollY;
       currentScroll = window.scrollY;
 
@@ -144,6 +154,8 @@ const fourth = async () => {
 
       years.classList.remove("scroll-end-yeras");
       imageContainers.classList.remove("scroll-end-container");
+      content.backgroundContainer.classList.remove("scroll-end-container");
+      content.rightContainer.classList.remove("scroll-end-container");
 
       imageContainers.classList.add("fixed");
       imageContainers.style.transform = `translateX(${-dx}px)`;
@@ -169,21 +181,25 @@ const fourth = async () => {
       } else {
         dx = 0;
       }
+
+      content.backgroundContainer.classList.add("scroll-end-container");
+      content.rightContainer.classList.add("scroll-end-container");
+
       imageContainers.style.transform = `translateX(${-dx}px)`;
       currentScroll = window.scrollY;
+
       years.classList.remove("fixed-years");
       imageContainers.classList.remove("fixed");
     }
 
-    if (-y > height) {
-      years.style.opacity = 0;
-      imageContainers.style.opacity = 0;
+    if (bottom - 10 < document.body.offsetHeight) {
       !isUseFifth && fifth();
       isUseFifth = true;
-      setTimeout(() => {
-        years.classList.add("scroll-end-yeras");
-        imageContainers.classList.add("scroll-end-container");
-      }, 100);
+      years.classList.add("scroll-end-yeras");
+      imageContainers.classList.add("scroll-end-container");
+
+      content.backgroundContainer.classList.add("scroll-end-container");
+      content.rightContainer.classList.add("scroll-end-container");
     }
   };
 
@@ -193,25 +209,52 @@ const fourth = async () => {
 const fifth = async () => {
   const { target, bigger } = content.fifth;
   target.classList.remove("hidden");
-
-  let scale = 0.5;
+  let isSixUsed = false;
+  let alpha = 0;
+  let scale = 0.1;
+  const ALPHA_LIMIT = 0.3;
+  const ALPHA_DA = 0.01;
   const LOW_LIMIT_SCALE = 0.5;
   const HIGH_LIMIT_SCALE = document.body.offsetWidth > 486 ? 5 : 1.9;
-  const ds = document.body.offsetWidth > 486 ? 0.5 : 0.2;
+  const ds = document.body.offsetWidth > 486 ? 0.05 : 0.05;
 
   window.addEventListener(
     "mousewheel",
     throttle((event) => {
-      const { y } = target.getBoundingClientRect();
-      if (y > 0) return;
-      if (event.wheelDelta >= 0) {
-        if (scale > LOW_LIMIT_SCALE) scale -= ds;
+      const { y, bottom } = target.getBoundingClientRect();
+      if (y > 10) {
+        bigger.style.color = "white";
+        alpha = 0;
+      } else if (event.wheelDelta >= 0) {
+        if (scale > LOW_LIMIT_SCALE) {
+          scale -= ds;
+        }
+        if (alpha < ALPHA_LIMIT) {
+          bigger.style.color = "white";
+        }
+        alpha -= ALPHA_DA;
       } else {
-        if (scale < HIGH_LIMIT_SCALE) scale += ds;
+        if (scale < HIGH_LIMIT_SCALE) {
+          scale += ds;
+        }
+        if (alpha > ALPHA_LIMIT) {
+          bigger.style.color = "black";
+        }
+        alpha += ALPHA_DA;
+      }
+      if (alpha < 0.98) {
+        target.style.backgroundColor = `rgba(255, 255, 255, ${alpha})`;
       }
       bigger.style.transform = `scale(${scale})`;
+
+      if (bottom - 10 < document.body.offsetHeight) {
+        !isSixUsed && sixth();
+        isSixUsed = true;
+      }
     }, 10)
   );
 };
+
+const sixth = () => {};
 
 window.onload = init;

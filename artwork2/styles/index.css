@@ -252,11 +252,6 @@ body {
   opacity: 1;
 }
 
-.hidden {
-  display: none;
-  opacity: 0;
-}
-
 /* background */
 
 .second-background {
@@ -322,7 +317,7 @@ body {
 }
 
 .animation-title::before {
-  content: "북한은 우리의 적?";
+  content: "북한을 이해할 수 없을까?";
   position: absolute;
   top: 0;
   left: 0;
@@ -331,7 +326,7 @@ body {
   color: white;
   overflow: hidden;
   border-right: 3px solid gray;
-  animation: typing 3s steps(11);
+  animation: typing 3s steps(20);
 }
 
 .pos-down::before {
@@ -407,7 +402,7 @@ Third
   top: 0;
   color: white;
   font-size: 9em;
-  opacity: 0.75;
+  opacity: 1;
   transform: rotate(90deg) translate(220px, 120px);
 }
 
@@ -625,6 +620,38 @@ Third
   flex-direction: column;
 }
 
+.background-container {
+  display: none;
+  position: fixed;
+  width: 450px;
+  height: 250px;
+  background-color: rgba(38, 38, 216, 0.74);
+  opacity: 0.55;
+  left: 0;
+  bottom: 0;
+  transition: transform 0.5s linear, opacity 0.5s linear;
+}
+
+.right-container {
+  display: none;
+  position: fixed;
+  width: 250px;
+  height: 450px;
+  top: 0;
+  right: 200px;
+  background-color: rgba(212, 58, 58, 0.781);
+  left: initial;
+  opacity: 0.55;
+  bottom: initial;
+  transition: transform 0.5s linear, opacity 0.5s linear;
+}
+
+.image-background-container > img {
+  width: 100%;
+  padding: 10px;
+  height: auto;
+}
+
 .fourth > .years {
   display: flex;
   align-items: center;
@@ -632,20 +659,36 @@ Third
   color: #fff;
   margin-top: 100px;
 
-  border: 1px solid white;
   border-left: none;
   border-right: none;
-  border-radius: 9px;
+  border-radius: 4px;
 
   padding: 10px;
   transition: opacity 100ms linear;
 }
 
+.years > div {
+  opacity: 0.5;
+  transition: opacity 1s linear, font 0.4s linear;
+}
+
+.years > .now {
+  opacity: 1;
+  color: rgba(126, 248, 109, 0.747);
+
+  transition: opacity 1s linear, font 0.4s linear;
+}
+
+.years > div:not(.now) {
+  font-size: 0.74em;
+}
+
 .fourth > .fixed-years {
   position: fixed;
   top: 12%;
-  width: 100%;
+  width: 96%;
   margin: 0;
+  left: 2%;
 }
 
 .fourth > .image-containers {
@@ -654,7 +697,7 @@ Third
   top: 5%;
   left: 0;
   width: max-content;
-  transition: opacity 100ms linear;
+  transition: opacity 10ms linear;
 }
 
 .fourth > .fixed {
@@ -671,19 +714,19 @@ Third
 .fourth > .image-containers > .image-container > img {
   width: 100%;
   height: auto;
+  border-radius: 8px;
   max-width: 350px;
 }
 
 .fourth > .scroll-end-yeras {
   position: relative;
+  opacity: 0;
 }
 
 .fourth > .scroll-end-container {
   position: relative;
-}
-
-.now {
-  color: red;
+  transition: none;
+  opacity: 0;
 }
 
 /* 
@@ -696,8 +739,8 @@ Third
   display: flex;
   justify-content: center;
   align-items: center;
-
   overflow-x: hidden;
+  transition: background 0.5s;
 }
 
 .bigger {
@@ -706,7 +749,6 @@ Third
   justify-content: center;
   align-items: center;
   color: white;
-  transition: transform 100ms linear;
 }
 
 * {
@@ -723,4 +765,74 @@ Third
   * {
     font-size: 14px;
   }
+}
+
+/* 
+  SIXTH
+*/
+
+.sixth {
+  width: 100%;
+  height: 500%;
+  background-color: rgba(255, 255, 255, 0.97);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.sixth > .blue {
+  position: fixed;
+  left: 50%;
+  top: 0;
+  transform: translate(-50%, 0);
+  width: 100px;
+  height: 100px;
+  border-radius: 52% 61% 53% 50%;
+  background-color: rgba(46, 46, 231, 0.781);
+  animation: rotate_ 3s linear infinite;
+  transition: opacity 1s;
+}
+
+.sixth > .red {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 100px;
+  height: 100px;
+  border-radius: 52% 61% 53% 50%;
+  background-color: rgba(231, 46, 46, 0.781);
+  animation: rotate_ 5s linear infinite;
+  transition: opacity 1s;
+}
+
+.fusion {
+  display: none;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 100px;
+  height: 100px;
+  transition: opacity 1s;
+  opacity: 0.55;
+}
+
+.fusion > img {
+  width: 100px;
+  height: 100px;
+}
+
+@keyframes rotate_ {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+.hidden {
+  display: none;
+  opacity: 0;
 }
