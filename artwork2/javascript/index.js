@@ -353,9 +353,62 @@ const sixth = async () => {
 const final = async () => {
   await sleep(1000);
   const target = document.querySelector(".final");
+  const text = target.querySelector(".text");
   const northSouth = document.body.querySelector(".north-and-south");
   northSouth.style.display = "none";
+
+  const setText = async (str) => {
+    await sleep(1000);
+    text.style.opacity = 1;
+    text.innerHTML = str;
+    await sleep(1000);
+  };
+
+  await sleep(1000);
   target.classList.remove("hidden");
+
+  const onScrollEvnet = () => {
+    const { y, height, bottom } = target.getBoundingClientRect();
+    if (bottom < -11) return;
+
+    if (y < 10) {
+      text.style.opacity = 1;
+      target.querySelector(".soongsil").style.opacity = "0.65";
+    } else {
+      if (y < height * 0.4) {
+        text.style.opacity = 0;
+      } else if (y < height * 0.6) {
+        text.style.opacity = 0.5;
+        setText(
+          "1945년 일제 해방이후, <br /> 2021년 현재 남과 북은 70년째 분단되어 있다."
+        );
+      } else if (y < height * 0.8) {
+        target.querySelector(".soongsil").style.opacity = "0";
+        text.style.filter = `blur(2px)`;
+        text.style.opacity = 1;
+      } else if (y < height * 0.85) {
+        text.style.opacity = 1;
+        text.style.filter = `blur(1px)`;
+        target.querySelector(".soongsil").style.opacity = "0.25";
+      } else if (y < height * 0.9) {
+        text.style.opacity = 1;
+        text.style.filter = `blur(0px)`;
+        target.querySelector(".soongsil").style.opacity = "0.65";
+      } else if (y < height) {
+        text.style.opacity = 1;
+        text.style.filter = `blur(0px)`;
+        target.querySelector(".soongsil").style.opacity = "0.65";
+      }
+    }
+
+    if (bottom - 10 < document.body.offsetHeight) {
+      text.style.opacity = 1;
+      text.style.filter = `blur(0px)`;
+      target.querySelector(".soongsil").style.opacity = "0.65";
+    }
+  };
+
+  window.addEventListener("scroll", throttle(onScrollEvnet, 10));
 };
 
 window.onload = init;
